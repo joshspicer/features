@@ -1,0 +1,28 @@
+{
+    "name": "Loop",
+    "id": "loop",
+    "version": "1.0.0",
+    "description": "A silly Feature that loops over the MESSAGE a COUNT number of times",
+    "options": {
+        "message": {
+            "type": "string",
+            "proposals": [
+                "loooop",
+                "booooop",
+                "zoooop"
+            ],
+            "default": "loooop",
+            "description": "Message to print COUNT times."
+        },
+        "count": {
+            "type": "string",
+            "proposals": [
+                "10",
+                "50",
+                "100"
+            ],
+            "default": "10",
+            "description": "Number of times to print message"
+        }
+    }
+}
