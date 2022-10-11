@@ -22,7 +22,7 @@
                 "100"
             ],
             "default": "10",
-            "description": "Number of times to print message"
+            "description": "Number of times to print MESSAGE"
         }
     }
 }
