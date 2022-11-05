@@ -30,7 +30,13 @@ source dev-container-features-test-lib
 
 # Feature-specific tests
 # The 'check' command comes from the dev-container-features-test-lib.
-check "loop exists" ls -1 /usr/local/bin | grep 'loop'
+
+file /usr/local/bin/oras
+file /home/linuxbrew/.linuxbrew/bin/skopeo
+
+check "oras installed and on path" oras version
+
+check "skopeo installed and on path" skopeo --version
 
 # Report results
 # If any of the checks above exited with a non-zero exit code, the test will fail.

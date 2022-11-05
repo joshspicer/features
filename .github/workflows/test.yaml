@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -12,12 +13,14 @@ jobs:
     strategy:
       matrix:
         features: [
-           "color",
-           "hello"
+           "oci-utils"
         ]
         baseImage:
           [
-            "mcr.microsoft.com/devcontainers/base:ubuntu"
+            "mcr.microsoft.com/devcontainers/base:focal",
+            "ubuntu:focal",
+            "mcr.microsoft.com/devcontainers/base:jammy",
+            "debian"
           ]
     steps:
       - uses: actions/checkout@v2
