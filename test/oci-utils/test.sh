@@ -31,6 +31,10 @@ source dev-container-features-test-lib
 # Feature-specific tests
 # The 'check' command comes from the dev-container-features-test-lib.
 
+ls -la /usr/local/bin
+file /usr/local/bin/oras
+file /usr/local/bin/skopeo
+
 check "oras installed and on path" oras version
 
 check "skopeo installed and on path" skopeo --version

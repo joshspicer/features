@@ -22,6 +22,18 @@ check_packages() {
     fi
 }
 
+updaterc() {
+#   if [ "${UPDATE_RC}" = "true" ]; then
+    echo "Updating /etc/bash.bashrc and /etc/zsh/zshrc..."
+    if [[ "$(cat /etc/bash.bashrc)" != *"$1"* ]]; then
+        echo -e "$1" >> /etc/bash.bashrc
+    fi
+    if [ -f "/etc/zsh/zshrc" ] && [[ "$(cat /etc/zsh/zshrc)" != *"$1"* ]]; then
+        echo -e "$1" >> /etc/zsh/zshrc
+    fi
+#   fi
+}
+
 echo "Activating feature 'oci-utils'"
 
 export DEBIAN_FRONTEND=noninteractive
@@ -110,6 +122,13 @@ if ! type skopeo > /dev/null 2>&1; then
         mkdir "${BREW_PREFIX}/bin"
         ln -s "${BREW_PREFIX}/Homebrew/bin/brew" "${BREW_PREFIX}/bin"
         # chown -R ${USERNAME} "${BREW_PREFIX}"
+
+        # Add Homebrew binaries into PATH in bashrc/zshrc files
+        updaterc "$(cat << EOF
+if [[ "\${PATH}" != *"${BREW_PREFIX}/bin"* ]]; then export PATH="${BREW_PREFIX}/bin:\${PATH}"; fi
+if [[ "\${PATH}" != *"${BREW_PREFIX}/sbin"* ]]; then export PATH="${BREW_PREFIX}/sbin:\${PATH}"; fi
+EOF
+)"
     fi
 
     /home/linuxbrew/.linuxbrew/bin/brew install skopeo
