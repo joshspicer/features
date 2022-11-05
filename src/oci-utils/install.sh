@@ -90,7 +90,8 @@ check_packages \
   patch \
   sudo \
   tzdata \
-  uuid-runtime
+  uuid-runtime \
+  jq    # Not strictly required, but nice to have
 
 echo "Installing 'oras' CLI"
 
@@ -122,16 +123,11 @@ if ! type skopeo > /dev/null 2>&1; then
         mkdir "${BREW_PREFIX}/bin"
         ln -s "${BREW_PREFIX}/Homebrew/bin/brew" "${BREW_PREFIX}/bin"
         # chown -R ${USERNAME} "${BREW_PREFIX}"
-
-        # Add Homebrew binaries into PATH in bashrc/zshrc files
-        updaterc "$(cat << EOF
-if [[ "\${PATH}" != *"${BREW_PREFIX}/bin"* ]]; then export PATH="${BREW_PREFIX}/bin:\${PATH}"; fi
-if [[ "\${PATH}" != *"${BREW_PREFIX}/sbin"* ]]; then export PATH="${BREW_PREFIX}/sbin:\${PATH}"; fi
-EOF
-)"
     fi
 
     /home/linuxbrew/.linuxbrew/bin/brew install skopeo
+
+    ln -s /home/linuxbrew/.linuxbrew/bin/skopeo  /usr/local/bin
 fi
 
 # Clean up

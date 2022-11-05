@@ -31,10 +31,8 @@ source dev-container-features-test-lib
 # Feature-specific tests
 # The 'check' command comes from the dev-container-features-test-lib.
 
-ls -la /usr/local/bin
 file /usr/local/bin/oras
-ls -la /home/linuxbrew/.linuxbrew/bin || :
-file /home/linuxbrew/.linuxbrew/bin/skopeo || :
+file /home/linuxbrew/.linuxbrew/bin/skopeo
 
 check "oras installed and on path" oras version
 
