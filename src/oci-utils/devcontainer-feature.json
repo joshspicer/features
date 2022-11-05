@@ -10,15 +10,15 @@
                 "0.15.1"
             ],
             "default": "0.15.1",
-            "description": "Version of oras to install.  See https://oras.land/cli for details."
+            "description": "Version of 'oras' to install.  See https://oras.land/cli for details."
         },
         "skopeoVersion": {
             "type": "string",
-            "enum": [
-                "latest"
+            "proposals": [
+                "1.10.0"
             ],
-            "default": "latest",
-            "description": "Version of skopeo to install. Currently only installs the latest from apt."
+            "default": "1.10.0",
+            "description": "Version of 'skopeo' to install."
         }
     }
 }
