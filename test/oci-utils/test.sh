@@ -33,7 +33,8 @@ source dev-container-features-test-lib
 
 ls -la /usr/local/bin
 file /usr/local/bin/oras
-file /usr/local/bin/skopeo
+ls -la /home/linuxbrew/.linuxbrew/bin
+file /home/linuxbrew/.linuxbrew/bin/skopeo
 
 check "oras installed and on path" oras version
 
