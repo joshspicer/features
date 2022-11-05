@@ -5,6 +5,8 @@ set -e
 ORAS_VERSION="$ORASVERSION"
 SKOPEO_VERSION="$SKOPEOVERSION" 
 
+USERNAME="automatic"
+
 apt_get_update() {
     if [ "$(find /var/lib/apt/lists/* | wc -l)" = "0" ]; then
         echo "Running apt-get update..."
@@ -41,6 +43,23 @@ if [ "${ARCHITECTURE}" != "amd64" ] && [ "${ARCHITECTURE}" != "x86_64" ]; then
   exit 1
 fi
 
+# # Determine the appropriate non-root user
+# if [ "${USERNAME}" = "auto" ] || [ "${USERNAME}" = "automatic" ]; then
+#   USERNAME=""
+#   POSSIBLE_USERS=("vscode" "node" "codespace" "$(awk -v val=1000 -F ":" '$3==val{print $1}' /etc/passwd)")
+#   for CURRENT_USER in "${POSSIBLE_USERS[@]}"; do
+#     if id -u ${CURRENT_USER} > /dev/null 2>&1; then
+#       USERNAME=${CURRENT_USER}
+#       break
+#     fi
+#   done
+#   if [ "${USERNAME}" = "" ]; then
+#     USERNAME=root
+#   fi
+# elif [ "${USERNAME}" = "none" ] || ! id -u ${USERNAME} > /dev/null 2>&1; then
+#   USERNAME=root
+# fi
+
 check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr git
 
 echo "Installing 'oras' CLI"
@@ -55,7 +74,7 @@ cd -
 
 echo "Installing 'skopeo' CLI..."
 
-check_packages skopeo
+check_packages skopeo || :
 
 if ! type skopeo > /dev/null 2>&1; then
     echo "Could not download 'skopeo' via apt. Installing via homebrew."
@@ -63,8 +82,18 @@ if ! type skopeo > /dev/null 2>&1; then
     # Check if homebrew (linuxbrew) installed.
     if ! type brew > /dev/null 2>&1; then
         echo "Installing homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        # Borrowed from: https://github.com/meaningful-ooo/devcontainer-features/blob/main/src/homebrew/install.sh
+        BREW_PREFIX="/home/linuxbrew/.linuxbrew"
+        git clone --depth 1 https://github.com/Homebrew/brew "${BREW_PREFIX}/Homebrew"
+        mkdir -p "${BREW_PREFIX}/Homebrew/Library/Taps/homebrew"
+        git clone --depth 1 https://github.com/Homebrew/homebrew-core "${BREW_PREFIX}/Homebrew/Library/Taps/homebrew/homebrew-core"
+
+        "${BREW_PREFIX}/Homebrew/bin/brew" config
+        mkdir "${BREW_PREFIX}/bin"
+        ln -s "${BREW_PREFIX}/Homebrew/bin/brew" "${BREW_PREFIX}/bin"
+        # chown -R ${USERNAME} "${BREW_PREFIX}"
     fi
+
     /home/linuxbrew/.linuxbrew/bin/brew install skopeo
 fi
 
