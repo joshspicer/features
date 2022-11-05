@@ -1,13 +1,13 @@
 
-# Loop (loop)
+# OCI Container Utils (oci-utils)
 
-A silly Feature that loops over the MESSAGE a COUNT number of times
+Installs useful CLI tools for working with OCI containers, namely skopeo and oras
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/joshspicer/features/loop:1": {
+    "ghcr.io/joshspicer/features/oci-utils:1": {
         "version": "latest"
     }
 }
@@ -17,11 +17,11 @@ A silly Feature that loops over the MESSAGE a COUNT number of times
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| message | Message to print COUNT times. | string | loooop |
-| count | Number of times to print message | string | 10 |
+| orasVersion | Version of 'oras' to install.  See https://oras.land/cli for details. | string | 0.15.1 |
+| skopeoVersion | Version of 'skopeo' to install. | string | 1.10.0 |
 
 
 
 ---
 
-_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/joshspicer/features/blob/main/src/loop/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/joshspicer/features/blob/main/src/oci-utils/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
