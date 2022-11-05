@@ -32,8 +32,8 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 . /etc/os-release
-if [ "${ID}" != "ubuntu" && "${ID}" != "debian" && "${ID_LIKE}" != "debian"  ]; then
-    echo -e 'This Feature only supports Ubuntu and Debian based distros.'
+if [ "${ID}" != "ubuntu" && "${ID}" != "debian"  ]; then
+    echo -e 'This Feature only supports Ubuntu and Debian based distributions.'
     exit 1
 fi
 
@@ -60,7 +60,25 @@ fi
 #   USERNAME=root
 # fi
 
-check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr git
+
+check_packages \
+  bzip2 \
+  ca-certificates \
+  curl \
+  file \
+  fonts-dejavu-core \
+  g++ \
+  git \
+  less \
+  libz-dev \
+  locales \
+  make \
+  netbase \
+  openssh-client \
+  patch \
+  sudo \
+  tzdata \
+  uuid-runtime
 
 echo "Installing 'oras' CLI"
 
