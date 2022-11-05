@@ -35,7 +35,11 @@ if [ "${ID}" != "ubuntu" && "${ID}" != "debian" && "${ID_LIKE}" != "debian"  ]; 
     exit 1
 fi
 
-# TODO: Check architecture - expects x86_64 right now 
+ARCHITECTURE="$(uname -m)"
+if [ "${ARCHITECTURE}" != "amd64" ] && [ "${ARCHITECTURE}" != "x86_64" ]; then
+  echo "(!) Architecture $ARCHITECTURE unsupported"
+  exit 1
+fi
 
 check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr git
 
@@ -61,7 +65,7 @@ if ! type skopeo > /dev/null 2>&1; then
         echo "Installing homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     fi
-    brew install skopeo
+    /home/linuxbrew/.linuxbrew/bin/brew install skopeo
 fi
 
 # Clean up
