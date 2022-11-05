@@ -37,7 +37,7 @@ fi
 
 # TODO: Check architecture - expects x86_64 right now 
 
-check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr
+check_packages apt-transport-https curl ca-certificates gnupg2 dirmngr git
 
 echo "Installing 'oras' CLI"
 
@@ -51,19 +51,18 @@ cd -
 
 echo "Installing 'skopeo' CLI..."
 
-# Take advantage of the prebuilt binaries that homebrew stores 
-# as OCI artifacts.
-# Eg: https://github.com/Homebrew/homebrew-core/pkgs/container/core%2Fskopeo
-# We _just_ installed oras, so we can directly pull the binary - no need for any other dependency :D
+check_packages skopeo
 
-# TODO: This doesn't work, yet!
-# cd /tmp
-#     /usr/local/bin/oras pull ghcr.io/homebrew/core/skopeo:${SKOPEO_VERSION}
-#     mkdir -p skopeo-install/
-#     tar -zxf skopeo--${SKOPEO_VERSION}.x86_64_linux.bottle.tar.gz -C skopeo-install/
-#     mv skopeo-install/skopeo/${SKOPEO_VERSION}/bin/skopeo /usr/local/bin/
-#     rm -rf skopeo--* skopeo-install/
-# cd -
+if ! type skopeo > /dev/null 2>&1; then
+    echo "Could not download 'skopeo' via apt. Installing via homebrew."
+
+    # Check if homebrew (linuxbrew) installed.
+    if ! type brew > /dev/null 2>&1; then
+        echo "Installing homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    fi
+    brew install skopeo
+fi
 
 # Clean up
 rm -rf /var/lib/apt/lists/*

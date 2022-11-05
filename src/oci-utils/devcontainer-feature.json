@@ -2,7 +2,7 @@
     "name": "OCI Container Utils",
     "id": "oci-utils",
     "version": "1.0.0",
-    "description": "Installs useful tools for working with OCI containers, namely skopeo and oras",
+    "description": "Installs useful CLI tools for working with OCI containers, namely skopeo and oras",
     "options": {
         "orasVersion": {
             "type": "string",
@@ -20,5 +20,9 @@
             "default": "1.10.0",
             "description": "Version of 'skopeo' to install."
         }
-    }
+    }, 
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/meaningful-ooo/devcontainer-features/homebrew"
+    ]
 }
