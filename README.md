@@ -1,1 +1,3 @@
-My own [dev container Features](https://containers.dev/implementors/features/)
+# `joshspicer/features`
+
+My personal [Development Container Features](https://containers.dev/features/).  
