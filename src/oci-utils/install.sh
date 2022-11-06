@@ -3,7 +3,7 @@ set -e
 
 # Options provided from devcontainer.json, or default values defined in 'devcontainer-feature.json'
 ORAS_VERSION="$ORASVERSION"
-SKOPEO_VERSION="$SKOPEOVERSION" 
+SKOPEO_VERSION="$SKOPEOVERSION"
 
 USERNAME="automatic"
 
@@ -105,7 +105,12 @@ cd -
 
 echo "Installing 'skopeo' CLI..."
 
-check_packages skopeo || :
+
+if [ "${SKOPEO_VERSION}" == "latest" ]; then
+    check_packages skopeo || :
+else
+    check_packages skopeo=${SKOPEO_VERSION} || :
+fi
 
 if ! type skopeo > /dev/null 2>&1; then
     echo "Could not download 'skopeo' via apt. Installing via homebrew."
@@ -125,7 +130,11 @@ if ! type skopeo > /dev/null 2>&1; then
         # chown -R ${USERNAME} "${BREW_PREFIX}"
     fi
 
-    /home/linuxbrew/.linuxbrew/bin/brew install skopeo
+    if [ "${SKOPEO_VERSION}" == "latest" ]; then
+        /home/linuxbrew/.linuxbrew/bin/brew install skopeo
+    else
+        /home/linuxbrew/.linuxbrew/bin/brew install skopeo@${SKOPEO_VERSION}
+    fi
 
     ln -s /home/linuxbrew/.linuxbrew/bin/skopeo  /usr/local/bin
 fi
