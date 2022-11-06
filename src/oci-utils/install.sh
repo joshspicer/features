@@ -106,7 +106,7 @@ cd -
 echo "Installing 'skopeo' CLI..."
 
 
-if [ "${SKOPEO_VERSION}" == "latest" ]; then
+if [[ "${SKOPEO_VERSION}" == "latest" ]]; then
     check_packages skopeo || :
 else
     check_packages skopeo=${SKOPEO_VERSION} || :
@@ -130,7 +130,7 @@ if ! type skopeo > /dev/null 2>&1; then
         # chown -R ${USERNAME} "${BREW_PREFIX}"
     fi
 
-    if [ "${SKOPEO_VERSION}" == "latest" ]; then
+    if [[ "${SKOPEO_VERSION}" == "latest" ]]; then
         /home/linuxbrew/.linuxbrew/bin/brew install skopeo
     else
         /home/linuxbrew/.linuxbrew/bin/brew install skopeo@${SKOPEO_VERSION}
