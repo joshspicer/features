@@ -1,0 +1,18 @@
+{
+    "skopeo_version_from_apt": {
+        "image": "ubuntu:jammy",
+        "features": {
+            "oci-utils": { 
+                "skopeoVersion": "1.4.1"
+            }
+        }
+    },
+    "skopeo_version_from_homebrew": {
+        "image": "ubuntu:focal",
+        "features": {
+            "oci-utils": { 
+                "skopeoVersion": "1.4.1"
+            }
+        }
+    }
+}
