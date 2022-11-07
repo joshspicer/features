@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Options provided from devcontainer.json, or default values defined in 'devcontainer-feature.json'
 ORAS_VERSION="$ORASVERSION"
-SKOPEO_VERSION="$SKOPEOVERSION" 
+SKOPEO_INSTALL_SOURCE="$SKOPEOINSTALLSOURCE"
 
 USERNAME="automatic"
 
@@ -44,7 +44,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 . /etc/os-release
-if [ "${ID}" != "ubuntu" && "${ID}" != "debian"  ]; then
+if [ "${ID}" != "ubuntu" ] && [ "${ID}" != "debian"  ]; then
     echo -e 'This Feature only supports Ubuntu and Debian based distributions.'
     exit 1
 fi
@@ -105,10 +105,18 @@ cd -
 
 echo "Installing 'skopeo' CLI..."
 
-check_packages skopeo || :
+
+if [ "${SKOPEO_INSTALL_SOURCE}" = "apt" ] || [ "${SKOPEO_INSTALL_SOURCE}" = "automatic" ]; then
+    check_packages skopeo || :
+fi
 
 if ! type skopeo > /dev/null 2>&1; then
-    echo "Could not download 'skopeo' via apt. Installing via homebrew."
+    echo "Did not download 'skopeo' via apt."
+
+    if [ "${SKOPEO_INSTALL_SOURCE}" != "homebrew" ] && [ "${SKOPEO_INSTALL_SOURCE}" != "automatic" ]; then
+        echo "Installing via homebrew is not enabled in the Feature options. Exiting without success."
+        exit 1
+    fi
 
     # Check if homebrew (linuxbrew) installed.
     if ! type brew > /dev/null 2>&1; then
@@ -125,8 +133,9 @@ if ! type skopeo > /dev/null 2>&1; then
         # chown -R ${USERNAME} "${BREW_PREFIX}"
     fi
 
-    /home/linuxbrew/.linuxbrew/bin/brew install skopeo
+    echo "Attempting to install skopeo via homebrew..."
 
+    /home/linuxbrew/.linuxbrew/bin/brew install skopeo
     ln -s /home/linuxbrew/.linuxbrew/bin/skopeo  /usr/local/bin
 fi
 

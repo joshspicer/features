@@ -1,7 +1,7 @@
 {
     "name": "OCI Container Utils",
     "id": "oci-utils",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Installs useful CLI tools for working with OCI containers, namely skopeo and oras",
     "options": {
         "orasVersion": {
@@ -10,15 +10,17 @@
                 "0.15.1"
             ],
             "default": "0.15.1",
-            "description": "Version of 'oras' to install.  See https://oras.land/cli for details."
+            "description": "Version of oras to install.  See https://oras.land/cli for details.  Omit for the default pinned version."
         },
-        "skopeoVersion": {
+        "skopeoInstallSource": {
             "type": "string",
-            "proposals": [
-                "1.10.0"
+            "enum": [
+                "automatic",
+                "homebrew",
+                "apt"
             ],
-            "default": "1.10.0",
-            "description": "Version of 'skopeo' to install."
+            "default": "automatic",
+            "description": "Locations to attempt to install skopeo from.  Choosing 'automatic' will attempt to install from apt first, then homebrew."
         }
     }, 
     "installsAfter": [
