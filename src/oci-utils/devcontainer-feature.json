@@ -12,14 +12,15 @@
             "default": "0.15.1",
             "description": "Version of oras to install.  See https://oras.land/cli for details.  Omit for the default pinned version."
         },
-        "skopeoVersion": {
+        "skopeoInstallSource": {
             "type": "string",
-            "proposals": [
-                "latest",
-                "1.9.3"
+            "enum": [
+                "automatic",
+                "homebrew",
+                "apt"
             ],
-            "default": "latest",
-            "description": "Version of skopeo to install, or simply 'latest'."
+            "default": "automatic",
+            "description": "Locations to attempt to install skopeo from.  Choosing 'automatic' will attempt to install from apt first, then homebrew."
         }
     }, 
     "installsAfter": [
