@@ -1,0 +1,10 @@
+{
+    "installs_after": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "fun": {},
+            "ghcr.io/devcontainers/features/common-utils": {},
+            "ghcr.io/meaningful-ooo/devcontainer-features/homebrew": {}
+        }
+    }
+}

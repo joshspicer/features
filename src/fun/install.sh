@@ -16,13 +16,18 @@ check_packages() {
     fi
 }
 
+install_from_brew() {
+    local PACKAGE="$1"
+    echo "Installing '$PACKAGE' via brew..."
+    brew install "$PACKAGE"
+}
+
 clean_up() {
     # Clean up
     rm -rf /var/lib/apt/lists/*
 }
 
 updaterc() {
-#   if [ "${UPDATE_RC}" = "true" ]; then
     echo "Updating /etc/bash.bashrc and /etc/zsh/zshrc..."
     if [[ "$(cat /etc/bash.bashrc)" != *"$1"* ]]; then
         echo -e "$1" >> /etc/bash.bashrc
@@ -30,7 +35,16 @@ updaterc() {
     if [ -f "/etc/zsh/zshrc" ] && [[ "$(cat /etc/zsh/zshrc)" != *"$1"* ]]; then
         echo -e "$1" >> /etc/zsh/zshrc
     fi
-#   fi
+}
+
+try_install_from_apt_or_brew() {
+    if command -v "$1" > /dev/null 2>&1; then
+        echo "'$1' already installed"
+        return
+    fi
+
+    local PACKAGE=$1
+    check_packages "$PACKAGE" || install_from_brew "$PACKAGE" || (echo "Failed to install '$PACKAGE'" && exit 1)
 }
 
 echo "Activating feature 'fun'"
@@ -53,6 +67,27 @@ if [ "${ARCHITECTURE}" != "amd64" ] && [ "${ARCHITECTURE}" != "x86_64" ]; then
   echo "(!) Architecture $ARCHITECTURE unsupported"
   exit 1
 fi
+
+# TODO: Be more resilient and install node/brew/etc. if not present
+############################################
+if ! type brew > /dev/null 2>&1; then
+    echo "(!) Homebrew not installed. Please include the homebrew Feature and then try again!"
+    exit 1
+fi
+
+if ! type npm > /dev/null 2>&1; then
+    echo "(!) npm not installed. Please install npm and then try again!"
+    exit 1
+fi
+
+if ! type node > /dev/null 2>&1; then
+    echo "(!) node not installed. Please install node and then try again!"
+    exit 1
+fi
+############################################
+
+try_install_from_apt_or_brew "sl"
+try_install_from_apt_or_brew "cowsay"
 
 
 clean_up
