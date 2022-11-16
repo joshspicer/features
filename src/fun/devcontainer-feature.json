@@ -1,0 +1,12 @@
+{
+    "name": "Fun-and-useless programs",
+    "id": "fun",
+    "version": "1.0.0",
+    "description": "A collection of fun and useless CLI programs. Includes: 'sl', 'cowsay', 'emoj'",
+    "options": {}, 
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/node",
+        "ghcr.io/meaningful-ooo/devcontainer-features/homebrew"
+    ]
+}

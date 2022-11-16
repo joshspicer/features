@@ -22,6 +22,11 @@ check_packages() {
     fi
 }
 
+clean_up() {
+    # Clean up
+    rm -rf /var/lib/apt/lists/*
+}
+
 updaterc() {
 #   if [ "${UPDATE_RC}" = "true" ]; then
     echo "Updating /etc/bash.bashrc and /etc/zsh/zshrc..."
@@ -103,8 +108,12 @@ cd /tmp
     rm -rf oras_${ORAS_VERSION}_*.tar.gz oras-install/
 cd -
 
-echo "Installing 'skopeo' CLI..."
+if [ "${SKOPEO_INSTALL_SOURCE}" = "none" ]; then
+    clean_up
+    exit 0
+fi
 
+echo "Installing 'skopeo' CLI..."
 
 if [ "${SKOPEO_INSTALL_SOURCE}" = "apt" ] || [ "${SKOPEO_INSTALL_SOURCE}" = "automatic" ]; then
     check_packages skopeo || :
@@ -139,5 +148,4 @@ if ! type skopeo > /dev/null 2>&1; then
     ln -s /home/linuxbrew/.linuxbrew/bin/skopeo  /usr/local/bin
 fi
 
-# Clean up
-rm -rf /var/lib/apt/lists/*
+clean_up
