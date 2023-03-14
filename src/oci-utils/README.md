@@ -15,8 +15,8 @@ Installs useful CLI tools for working with OCI containers, namely skopeo and ora
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| orasVersion | Version of oras to install.  See https://oras.land/cli for details.  Omit for the default pinned version. | string | 0.15.1 |
-| skopeoInstallSource | Locations to attempt to install skopeo from.  Choosing 'automatic' will attempt to install from apt first, then homebrew. | string | automatic |
+| orasVersion | Version of oras to install.  See https://oras.land/cli for details.  Omit for the default pinned version. | string | 0.16.0 |
+| skopeoInstallSource | Locations to attempt to install skopeo from.  Choosing 'automatic' will attempt to install from apt first, then homebrew. Choosing 'none' will skip installation. | string | automatic |
 
 
 
