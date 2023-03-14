@@ -14,6 +14,10 @@ apt_get_update() {
     fi
 }
 
+clean_up() {
+    rm -rf /var/lib/apt/lists/*
+}
+
 # Checks if packages are installed and installs them if not
 check_packages() {
     if ! dpkg -s "$@" > /dev/null 2>&1; then
@@ -105,6 +109,12 @@ cd -
 
 echo "Installing 'skopeo' CLI..."
 
+if [ "${SKOPEO_INSTALL_SOURCE}" = "none" ]; then 
+    echo "Skip installing skopeo"
+    clean_up
+    exit 0
+fi`
+
 
 if [ "${SKOPEO_INSTALL_SOURCE}" = "apt" ] || [ "${SKOPEO_INSTALL_SOURCE}" = "automatic" ]; then
     check_packages skopeo || :
@@ -139,5 +149,5 @@ if ! type skopeo > /dev/null 2>&1; then
     ln -s /home/linuxbrew/.linuxbrew/bin/skopeo  /usr/local/bin
 fi
 
-# Clean up
-rm -rf /var/lib/apt/lists/*
+# Remove any temporary files and apt lists.
+clean_up
