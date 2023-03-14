@@ -1,7 +1,7 @@
 
-# mitm-proxy
+# mitmproxy https proxy (mitm-proxy)
 
-
+mitmproxy is a free and open source, terminal-based interactive HTTP(S) proxy.
 
 ## Example Usage
 
