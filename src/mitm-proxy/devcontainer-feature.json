@@ -1,5 +1,4 @@
 {
-    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json",
     "id": "mitm-proxy",
     "version": "1.0.0",
     "options": {
