@@ -113,7 +113,7 @@ if [ "${SKOPEO_INSTALL_SOURCE}" = "none" ]; then
     echo "Skip installing skopeo"
     clean_up
     exit 0
-fi`
+fi
 
 
 if [ "${SKOPEO_INSTALL_SOURCE}" = "apt" ] || [ "${SKOPEO_INSTALL_SOURCE}" = "automatic" ]; then
