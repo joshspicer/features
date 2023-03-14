@@ -1,6 +1,6 @@
 {
     "id": "mitm-proxy",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "options": {
         "version": {
             "type": "string",
@@ -17,6 +17,10 @@
             "description": "Install root CA into system store (required to proxy HTTPS requests)."
         }
     },
+    // "remoteEnv": {
+    //     "HTTPS_PROXY": "https://localhost:8080",
+    //     "HTTP_PROXY": "http://localhost:8080"
+    // },
     "installsAfter": [
         "ghcr.io/devcontainers/features/python"
     ]

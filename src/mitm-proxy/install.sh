@@ -72,3 +72,6 @@ if [ "$INSTALL_ROOT_CERTS" = "true" ]; then
 fi
 
 clean_up
+
+echo "Done!"
+echo "To enable the proxy, run 'export HTTPS_PROXY=https://localhost:8080' and/or 'export HTTP_PROXY=http://localhost:8080'"
