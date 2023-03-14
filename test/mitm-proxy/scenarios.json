@@ -1,0 +1,8 @@
+{
+    "nonrootUser": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "mitm-proxy": {}
+        }
+    }
+}

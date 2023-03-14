@@ -1,7 +1,7 @@
 {
     "name": "OCI Container Utils",
     "id": "oci-utils",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Installs useful CLI tools for working with OCI containers, namely skopeo and oras",
     "options": {
         "orasVersion": {

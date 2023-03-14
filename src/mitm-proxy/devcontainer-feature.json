@@ -1,0 +1,24 @@
+{
+    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainerFeature.schema.json",
+    "id": "mitm-proxy",
+    "version": "1.0.0",
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "latest",
+            "description": "Version of MITM proxy to install (auto-detects if 'latest'). See https://mitmproxy.org/downloads/ for available versions.",
+            "proposals": [
+                "latest",
+                "9.0.1"
+            ]
+        },
+        "installRootCerts" : {
+            "type": "boolean",
+            "default": true,
+            "description": "Install root CA into system store (required to proxy HTTPS requests)."
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/python"
+    ]
+}
