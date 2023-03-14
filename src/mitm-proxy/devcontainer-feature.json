@@ -1,6 +1,8 @@
 {
     "id": "mitm-proxy",
-    "version": "1.0.1",
+    "name": "mitmproxy https proxy",
+    "description": "mitmproxy is a free and open source, terminal-based interactive HTTP(S) proxy.",
+    "version": "1.0.2",
     "options": {
         "version": {
             "type": "string",
