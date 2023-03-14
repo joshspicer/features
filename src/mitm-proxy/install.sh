@@ -75,3 +75,7 @@ clean_up
 
 echo "Done!"
 echo "To enable the proxy, run 'export HTTPS_PROXY=https://localhost:8080' and/or 'export HTTP_PROXY=http://localhost:8080'"
+#     "remoteEnv": {
+#         "HTTPS_PROXY": "https://localhost:8080",
+#         "HTTP_PROXY": "http://localhost:8080"
+#     },
