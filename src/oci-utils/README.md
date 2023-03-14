@@ -7,9 +7,7 @@ Installs useful CLI tools for working with OCI containers, namely skopeo and ora
 
 ```json
 "features": {
-    "ghcr.io/joshspicer/features/oci-utils:1": {
-        "version": "latest"
-    }
+    "ghcr.io/joshspicer/features/oci-utils:1": {}
 }
 ```
 
