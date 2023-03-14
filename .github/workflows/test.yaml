@@ -13,7 +13,8 @@ jobs:
     strategy:
       matrix:
         features: [
-           "oci-utils"
+           "oci-utils",
+           "mitm-proxy"
         ]
         baseImage:
           [
