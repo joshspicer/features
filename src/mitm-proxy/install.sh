@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MITM_VERSION="${VERSION}"
+MITM_VERSION="${VERSION:-latest}"
 INSTALL_ROOT_CERTS="${INSTALLROOTCERTS}"
 
 apt_get_update() {
