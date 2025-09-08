@@ -98,9 +98,27 @@ version_compare() {
     fi
 }
 
+# Detect platform architecture for newer versions
+detect_architecture() {
+    local arch=$(uname -m)
+    case "$arch" in
+        x86_64)
+            echo "x86_64"
+            ;;
+        aarch64|arm64)
+            echo "aarch64"
+            ;;
+        *)
+            echo "Warning: Unsupported architecture '$arch', defaulting to x86_64" >&2
+            echo "x86_64"
+            ;;
+    esac
+}
+
 # Check if version is greater than 10.1.5
 if version_compare "${MITM_VERSION}" "10.1.5"; then
-    FILENAME="mitmproxy-${MITM_VERSION}-linux-x86_64.tar.gz"
+    ARCH=$(detect_architecture)
+    FILENAME="mitmproxy-${MITM_VERSION}-linux-${ARCH}.tar.gz"
 else
     FILENAME="mitmproxy-${MITM_VERSION}-linux.tar.gz"
 fi
