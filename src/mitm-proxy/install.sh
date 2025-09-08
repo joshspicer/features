@@ -48,8 +48,67 @@ fi
 
 echo "Installing mitmproxy version ${MITM_VERSION}..."
 
+# Determine the correct filename format based on version
+# For versions > 10.1.5, the filename includes architecture (linux-x86_64)
+# For versions <= 10.1.5, the filename is just linux
+version_compare() {
+    # Simple version comparison for x.y.z format
+    # Returns 0 if $1 > $2, 1 if $1 <= $2
+    local v1=$(echo "$1" | sed 's/^v//')
+    local v2=$(echo "$2" | sed 's/^v//')
+    
+    # Check if versions are numeric-like (contain only digits and dots)
+    if ! echo "$v1" | grep -qE '^[0-9]+(\.[0-9]+)*$'; then
+        echo "Warning: Non-numeric version '$1', assuming new format"
+        return 0  # Assume newer format for non-numeric versions
+    fi
+    
+    # Split versions into major.minor.patch, defaulting missing parts to 0
+    local v1_major=$(echo "$v1" | cut -d. -f1)
+    local v1_minor=$(echo "$v1" | cut -d. -f2)
+    local v1_patch=$(echo "$v1" | cut -d. -f3)
+    
+    local v2_major=$(echo "$v2" | cut -d. -f1)
+    local v2_minor=$(echo "$v2" | cut -d. -f2)
+    local v2_patch=$(echo "$v2" | cut -d. -f3)
+    
+    # Handle missing parts by defaulting to 0
+    [ -z "$v1_minor" ] && v1_minor=0
+    [ -z "$v1_patch" ] && v1_patch=0
+    [ -z "$v2_minor" ] && v2_minor=0
+    [ -z "$v2_patch" ] && v2_patch=0
+    
+    # Ensure all parts are numbers
+    [ -z "$v1_major" ] && v1_major=0
+    [ -z "$v2_major" ] && v2_major=0
+    
+    # Compare major.minor.patch
+    if [ "$v1_major" -gt "$v2_major" ]; then
+        return 0
+    elif [ "$v1_major" -lt "$v2_major" ]; then
+        return 1
+    elif [ "$v1_minor" -gt "$v2_minor" ]; then
+        return 0
+    elif [ "$v1_minor" -lt "$v2_minor" ]; then
+        return 1
+    elif [ "$v1_patch" -gt "$v2_patch" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Check if version is greater than 10.1.5
+if version_compare "${MITM_VERSION}" "10.1.5"; then
+    FILENAME="mitmproxy-${MITM_VERSION}-linux-x86_64.tar.gz"
+else
+    FILENAME="mitmproxy-${MITM_VERSION}-linux.tar.gz"
+fi
+
+echo "Using filename: ${FILENAME}"
+
 # Install and add to path
-wget https://snapshots.mitmproxy.org/${MITM_VERSION}/mitmproxy-${MITM_VERSION}-linux.tar.gz -O /tmp/mitm.tar.gz
+wget https://snapshots.mitmproxy.org/${MITM_VERSION}/${FILENAME} -O /tmp/mitm.tar.gz
 tar xvf /tmp/mitm.tar.gz -C /usr/local/bin
 
 # Start mitmdump for 5s in order to generate the ~/.mitmproxy folder and certificates
