@@ -10,6 +10,9 @@
             "description": "Version of MITM proxy to install (auto-detects if 'latest'). See https://mitmproxy.org/downloads/ for available versions.",
             "proposals": [
                 "latest",
+                "12.1.2",
+                "10.1.6",
+                "10.1.5",
                 "9.0.1"
             ]
         },
