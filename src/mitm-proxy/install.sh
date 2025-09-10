@@ -116,11 +116,14 @@ detect_architecture() {
 }
 
 # Check if version is greater than 10.1.5
+# Strip 'v' prefix from version for filename construction
+VERSION_NO_V=$(echo "${MITM_VERSION}" | sed 's/^v//')
+
 if version_compare "${MITM_VERSION}" "10.1.5"; then
     ARCH=$(detect_architecture)
-    FILENAME="mitmproxy-${MITM_VERSION}-linux-${ARCH}.tar.gz"
+    FILENAME="mitmproxy-${VERSION_NO_V}-linux-${ARCH}.tar.gz"
 else
-    FILENAME="mitmproxy-${MITM_VERSION}-linux.tar.gz"
+    FILENAME="mitmproxy-${VERSION_NO_V}-linux.tar.gz"
 fi
 
 echo "Using filename: ${FILENAME}"
