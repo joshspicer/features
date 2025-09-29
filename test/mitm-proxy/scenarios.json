@@ -4,37 +4,5 @@
         "features": {
             "mitm-proxy": {}
         }
-    },
-    "legacyVersion": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "mitm-proxy": {
-                "version": "10.1.5"
-            }
-        }
-    },
-    "newVersion": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "mitm-proxy": {
-                "version": "10.1.6"
-            }
-        }
-    },
-    "latestVersion": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "mitm-proxy": {
-                "version": "latest"
-            }
-        }
-    },
-    "specificNewVersion": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "mitm-proxy": {
-                "version": "12.1.2"
-            }
-        }
     }
 }
