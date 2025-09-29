@@ -129,7 +129,7 @@ fi
 echo "Using filename: ${FILENAME}"
 
 # Install and add to path
-wget https://snapshots.mitmproxy.org/${MITM_VERSION}/${FILENAME} -O /tmp/mitm.tar.gz
+wget https://downloads.mitmproxy.org/${VERSION_NO_V}/${FILENAME} -O /tmp/mitm.tar.gz
 tar xvf /tmp/mitm.tar.gz -C /usr/local/bin
 
 # Start mitmdump for 5s in order to generate the ~/.mitmproxy folder and certificates
